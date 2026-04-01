@@ -1,0 +1,43 @@
+services:
+    database:
+        container_name: staj
+        image: postgres:18
+        environment:
+            POSTGRES_DB: "testdb"
+            POSTGRES_USER: "testuser"
+            POSTGRES_PASSWORD: "testpass"
+        volumes:
+            - staj_app:/var/lib/postgresql
+        ports:
+            - "5433:5432"
+        networks:
+            - symfony
+
+    php:
+        container_name: staj_php
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
+        volumes:
+            - ./:/var/www/
+        networks:
+            - symfony
+
+    nginx:
+        container_name: staj_nginx
+        build:
+            context: .
+            dockerfile: docker/nginx/Dockerfile
+        volumes:
+            - ./:/var/www/
+        ports:
+            - "8080:80"
+        networks:
+            - symfony
+volumes:
+  staj_app:
+networks:
+  symfony:
+    driver: bridge
+
+

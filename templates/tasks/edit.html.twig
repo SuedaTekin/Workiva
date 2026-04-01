@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Task{% endblock %}
+
+{% block body %}
+<div class="container-fluid p-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <a href="{{ path('app_task_list') }}" class="btn btn-secondary mb-3">
+                    <i class="fas fa-arrow-left"></i> Back to Task List
+                </a>
+            </div>
+
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white py-3 border-bottom-0">
+                    <h4 class="fw-bold m-0 text-primary">Edit Task: {{ task.title }}</h4>
+                </div>
+                <div class="card-body p-4">
+                    {{ form_start(form) }}
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Task Title</label>
+                            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label fw-semibold">Status</label>
+                                    {{ form_widget(form.status, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label fw-semibold">Deadline</label>
+                                    {{ form_widget(form.deadline, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Assigned To</label>
+                            {{ form_widget(form.assignedTo, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Project</label>
+                            {{ form_widget(form.project, {'attr': {'class': 'form-select'}}) }}
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg shadow-sm">
+                                <i class="fas fa-save me-2"></i> Update Task
+                            </button>
+                        </div>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

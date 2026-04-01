@@ -1,0 +1,175 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Task Management{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid p-4">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold m-0">Task List</h2>
+
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <form method="GET" action="{{ path('app_task_list') }}" 
+     class="d-flex gap-2" style="width: 700px;">
+
+        <select name="status" class="form-select flex-grow-1">
+            <option value="">All Status</option>
+
+            <option value="Pending"
+                {{ app.request.get('status') == 'Pending' ? 'selected' : '' }}>
+                Pending
+            </option>
+
+            <option value="Completed"
+                {{ app.request.get('status') == 'Completed' ? 'selected' : '' }}>
+                Completed
+            </option>
+
+            <option value="In Progress"
+                {{ app.request.get('status') == 'In Progress' ? 'selected' : '' }}>
+                In Progress
+            </option>
+        </select>
+
+        <button class="btn btn-primary px-4">
+            <i class="fas fa-search"></i>
+        </button>
+
+    </form>
+    <a href="/tasks/new" class="btn btn-primary">
+        <i class="bi bi-person-plus-fill"></i> Add New Task
+    </a>
+</div>
+<div class="row mb-4">
+
+<div class="col-md-3">
+    <div class="card border-0 shadow-sm bg-primary text-white p-3">
+        <small>Total Tasks</small>
+        <h4 class="m-0">{{ tasks|length }}</h4>
+    </div>
+</div>
+
+<div class="col-md-3">
+    <div class="card border-0 shadow-sm bg-success text-white p-3">
+        <small>Completed</small>
+        <h4 class="m-0">
+            {{ tasks|filter(t => t.status == 'Completed')|length }}
+        </h4>
+    </div>
+</div>
+
+<div class="col-md-3">
+    <div class="card border-0 shadow-sm bg-warning text-white p-3">
+        <small>Pending</small>
+        <h4 class="m-0">
+            {{ tasks|filter(t => t.status == 'Pending')|length }}
+        </h4>
+    </div>
+</div>
+
+</div>
+
+<div class="card border-0 shadow-sm">
+
+<div class="card-header bg-white py-3">
+    <h5 class="card-title mb-0 text-secondary">
+        Active Tasks
+    </h5>
+</div>
+
+<div class="card-body p-0">
+
+<div class="table-responsive">
+
+<table class="table table-hover align-middle mb-0">
+
+<thead class="table-light">
+    <tr>
+
+        <th class="ps-4">Task Name</th>
+        <th>Project</th>
+        <th>Assigned To</th>
+        <th>Deadline</th>
+        <th>Status</th>
+        <th class="text-end pe-4">Actions</th>
+
+    </tr>
+</thead>
+
+<tbody>
+
+    {% for task in tasks %}
+
+    <tr>
+
+        <td class="ps-4 fw-semibold">
+            {{ task.title }}
+        </td>
+
+        <td>
+            {{ task.project.name }}
+        </td>
+
+        <td>
+            {{ task.assignedTo }}
+        </td>
+
+        <td>
+            {{ task.deadline|date('d M Y') }}
+        </td>
+
+        <td>
+
+            {% if task.status == 'Completed' %}
+                <span class="badge bg-success">Completed</span>
+
+            {% elseif task.status == 'Pending' %}
+                <span class="badge bg-warning">Pending</span>
+
+            {% else %}
+                <span class="badge bg-primary">In Progress</span>
+
+            {% endif %}
+
+        </td>
+
+        <td class="text-end pe-4">
+
+            <a href="{{ path('app_task_edit', {'id': task.id}) }}"
+                class="btn btn-sm btn-outline-primary">
+
+                <i class="fas fa-edit"></i>
+                Edit
+            </a>
+
+        </td>
+
+    </tr>
+
+    {% else %}
+
+    <tr>
+        <td colspan="6" class="text-center p-4">
+            No tasks found
+        </td>
+    </tr>
+
+    {% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

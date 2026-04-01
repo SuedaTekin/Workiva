@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="card shadow-sm border-0">
+
+    <div class="card-header bg-gradient text-white" style="background: linear-gradient(90deg,#0d6efd,#4facfe);">
+        <h4 class="mb-0"><i class="bi bi-people-fill"></i> User Management</h4>
+    </div>
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+    <form method="GET" action="{{ path('app_user_index') }}" style="width: 700px;">
+        <div class="input-group">
+            <input 
+                type="text" 
+                name="search" 
+                class="form-control" 
+                placeholder="Search by name..." 
+                value="{{ app.request.get('search') }}"
+            >
+            <button class="btn btn-primary px-4">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+    </form>
+
+    <a href="{{ path('app_user_new') }}" class="btn btn-primary">
+        <i class="bi bi-person-plus-fill"></i> Add New User
+    </a>
+
+</div>
+
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th class="text-center">Transactions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.surname }}</td>
+                    <td>{{ user.email }}</td>
+                    <td><span class="badge bg-info">{{ user.age }}</span></td>
+                    <td><span class="badge bg-secondary">{{ user.gender }}</span></td>
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center gap-2">
+
+                        <a href="{{ path('app_user_show', {'id': user.id}) }}" 
+                            class="btn btn-sm btn-info text-white mr-1" title="Show">
+                            <i class="bi bi-eye-fill"></i>
+                        </a>
+
+                            <a href="{{ path('app_user_edit', {'id': user.id}) }}" 
+                           class="btn btn-sm btn-warning mr-1" title="Edit">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+
+                        {{ include('user/_delete_form.html.twig', {'user': user}) }}
+
+    </div>
+</td>
+            {% else %}
+                <tr>
+                    <td colspan="7" class="text-center text-muted">The user was not found.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{{ form_start(form) }}
+
+<div class="mb-3">
+    {{ form_label(form.name) }}
+    {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Enter your name'}}) }}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.surname) }}
+    {{ form_widget(form.surname, {'attr': {'class': 'form-control', 'placeholder': 'Enter your surname'}}) }}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.email) }}
+    {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Enter your email'}}) }}
+</div>
+
+<div class="row">
+
+    <div class="col-md-6 mb-3">
+        {{ form_label(form.age) }}
+        {{ form_widget(form.age, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="col-md-6 mb-3">
+    {{ form_label(form.gender, null, {'label_attr': {'class': 'form-label d-block'}}) }}
+    {{ form_widget(form.gender, {'attr': {'class': 'form-select'}}) }}
+</div>
+</div>
+
+<div class="row align-items-end mt-2">
+    <div class="col-md-9">
+        {{ form_label(form.plainPassword) }}
+        {{ form_widget(form.plainPassword, {
+            'attr': {
+                'class': 'form-control', 
+                'placeholder': 'Leave blank to keep current password'
+            }
+        }) }}
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-primary w-100">
+            {{ button_label|default('Save') }}
+        </button>
+    </div>
+</div>
+
+{{ form_end(form) }}

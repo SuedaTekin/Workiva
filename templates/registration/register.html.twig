@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center mt-5 mb-5">
+    <div class="col-lg-7">
+        <div class="card shadow-lg border-0">
+            {# Edit User ve Login sayfalarındaki aynı mavi gradient header #}
+            <div class="card-header bg-gradient text-white text-center py-3" style="background: linear-gradient(90deg,#0d6efd,#4facfe);">
+                <h4 class="mb-0"><i class="bi bi-person-plus-fill"></i> Create Account</h4>
+            </div>
+
+            <div class="card-body p-4">
+                {# Hata Mesajları #}
+                {% for flash_error in app.flashes('verify_email_error') %}
+                    <div class="alert alert-danger shadow-sm border-0" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill"></i> {{ flash_error }}
+                    </div>
+                {% endfor %}
+
+                {{ form_errors(registrationForm) }}
+
+                {{ form_start(registrationForm) }}
+                    
+                    {# Ad ve Soyad - Yan Yana #}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(registrationForm.name, 'Name') }}
+                            {{ form_widget(registrationForm.name, {'attr': {'class': 'form-control', 'placeholder': 'Enter your name'}}) }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(registrationForm.surname, 'Surname') }}
+                            {{ form_widget(registrationForm.surname, {'attr': {'class': 'form-control', 'placeholder': 'Enter your surname'}}) }}
+                        </div>
+                    </div>
+
+                    {# Email #}
+                    <div class="mb-3">
+                        {{ form_label(registrationForm.email) }}
+                        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'example@gmail.com'}}) }}
+                    </div>
+
+                    {# Yaş ve Cinsiyet - Yan Yana #}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(registrationForm.age) }}
+                            {{ form_widget(registrationForm.age, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(registrationForm.gender) }}
+                            {{ form_widget(registrationForm.gender, {'attr': {'class': 'form-select'}}) }}
+                        </div>
+                    </div>
+
+                    {# Şifre #}
+                    <div class="mb-3">
+                        {{ form_label(registrationForm.plainPassword, 'Password') }}
+                        {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Min. 6 characters'}}) }}
+                    </div>
+
+                    {# Şartlar ve Koşullar #}
+                    <div class="form-check mb-4 mt-2">
+                        {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                        {{ form_label(registrationForm.agreeTerms, 'I agree to the terms', {'label_attr': {'class': 'form-check-label'}}) }}
+                    </div>
+
+                    {# Kayıt Butonu #}
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg shadow-sm">
+                            Register <i class="bi bi-person-check-fill ms-1"></i>
+                        </button>
+                    </div>
+
+                {{ form_end(registrationForm) }}
+            </div>
+            
+            {# Alt Bilgi: Giriş Yap Yönlendirmesi #}
+            <div class="card-footer text-center py-3 bg-light border-0">
+                <div class="small text-muted">
+                    Already have an account? <a href="{{ path('app_login') }}" class="text-primary text-decoration-none fw-bold">Login here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

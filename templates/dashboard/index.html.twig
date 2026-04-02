@@ -4,161 +4,161 @@
 
 {% block body %}
 
-<div class="container-fluid">
+    <div class="container-fluid">
 
-<div class="row mb-3">
-<div class="col-12">
-<h4>WELCOME {{ app.user.email }}</h4>
-</div>
-</div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <h4>WELCOME {{ app.user.email }}</h4>
+            </div>
+        </div>
 
 
-<div class="row">
+        <div class="row">
 
-<div class="col-lg-3 col-6">
-<div class="small-box bg-info">
-<div class="inner">
-<h3>{{ totalTasks }}</h3>
-<p>Total Tasks</p>
-</div>
-<div class="icon">
-<i class="fas fa-tasks"></i>
-</div>
-</div>
-</div>
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>{{ totalTasks }}</h3>
+                        <p>Total Tasks</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                </div>
+            </div>
 
-<div class="col-lg-3 col-6">
-<div class="small-box bg-success">
-<div class="inner">
-<h3>{{ completedTasks }}</h3>
-<p>Completed Tasks</p>
-</div>
-<div class="icon">
-<i class="fas fa-check"></i>
-</div>
-</div>
-</div>
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>{{ completedTasks }}</h3>
+                        <p>Completed Tasks</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+            </div>
 
-<div class="col-lg-3 col-6">
-<div class="small-box bg-warning">
-<div class="inner">
-<h3>{{ upcomingTasks|length }}</h3>
-<p>Deadline Approaching</p>
-</div>
-<div class="icon">
-<i class="fas fa-clock"></i>
-</div>
-</div>
-</div>
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>{{ upcomingTasks|length }}</h3>
+                        <p>Deadline Approaching</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                </div>
+            </div>
 
-</div>
+        </div>
 
-<div class="row mt-4">
-<div class="col-md-12">
+        <div class="row mt-4">
+            <div class="col-md-12">
 
-<div class="card">
-<div class="card-header">
-<h3 class="card-title">
-<i class="fas fa-exclamation-triangle"></i>
-Deadline Approaching Tasks
-</h3>
-</div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Deadline Approaching Tasks
+                        </h3>
+                    </div>
 
-<div class="card-body">
+                    <div class="card-body">
 
-<table class="table table-bordered table-striped">
-<thead>
-<tr>
-<th>Title</th>
-<th>Deadline</th>
-<th>Status</th>
-</tr>
-</thead>
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Deadline</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
 
-<tbody>
+                            <tbody>
 
-{% for task in upcomingTasks %}
-<tr>
-<td>{{ task.title }}</td>
-<td>{{ task.deadline|date('d.m.Y') }}</td>
-<td>
+                            {% for task in upcomingTasks %}
+                                <tr>
+                                    <td>{{ task.title }}</td>
+                                    <td>{{ task.deadline|date('d.m.Y') }}</td>
+                                    <td>
 <span class="badge badge-warning">
 Approaching
 </span>
-</td>
-</tr>
-{% else %}
-<tr>
-<td colspan="3" class="text-center">
-Deadline approaching tasks not found
-</td>
-</tr>
-{% endfor %}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="3" class="text-center">
+                                        Deadline approaching tasks not found
+                                    </td>
+                                </tr>
+                            {% endfor %}
 
-</tbody>
+                            </tbody>
 
-</table>
+                        </table>
 
-</div>
-</div>
+                    </div>
+                </div>
 
-</div>
-</div>
+            </div>
+        </div>
 
-</div>
-<div class="row mt-4">
-<div class="col-md-12">
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
 
-<div class="card">
-<div class="card-header bg-danger">
-<h3 class="card-title">
-<i class="fas fa-times-circle"></i>
-Overdue Tasks
-</h3>
-</div>
+            <div class="card">
+                <div class="card-header bg-danger">
+                    <h3 class="card-title">
+                        <i class="fas fa-times-circle"></i>
+                        Overdue Tasks
+                    </h3>
+                </div>
 
-<div class="card-body">
+                <div class="card-body">
 
-<table class="table table-bordered">
-<thead>
-<tr>
-<th>Title</th>
-<th>Deadline</th>
-<th>Status</th>
-</tr>
-</thead>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Deadline</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
 
-<tbody>
+                        <tbody>
 
-{% for task in overdueTasks %}
-<tr>
-<td>{{ task.title }}</td>
-<td>{{ task.deadline|date('d.m.Y') }}</td>
-<td>
+                        {% for task in overdueTasks %}
+                            <tr>
+                                <td>{{ task.title }}</td>
+                                <td>{{ task.deadline|date('d.m.Y') }}</td>
+                                <td>
 <span class="badge badge-danger">
 Overdue
 </span>
-</td>
-</tr>
+                                </td>
+                            </tr>
 
-{% else %}
+                        {% else %}
 
-<tr>
-<td colspan="3" class="text-center">
-Overdue tasks not found
-</td>
-</tr>
+                            <tr>
+                                <td colspan="3" class="text-center">
+                                    Overdue tasks not found
+                                </td>
+                            </tr>
 
-{% endfor %}
+                        {% endfor %}
 
-</tbody>
+                        </tbody>
 
-</table>
+                    </table>
 
-</div>
-</div>
+                </div>
+            </div>
 
-</div>
-</div>
+        </div>
+    </div>
 
 {% endblock %}
